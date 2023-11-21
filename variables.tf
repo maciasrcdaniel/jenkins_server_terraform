@@ -33,3 +33,7 @@ variable "ssh_key" {
   default = "jenkinskeys"
 }
 
+variable "user_data" {
+  type    = string
+  default = "jenkins_boostrap_script.sh"
+}
