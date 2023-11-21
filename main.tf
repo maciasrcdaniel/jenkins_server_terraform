@@ -12,20 +12,7 @@ resource "aws_instance" "jenkins_server" {
   subnet_id              = var.subnet_id
   vpc_security_group_ids = [aws_security_group.jenkins_terra_sg.id]
   key_name               = var.ssh_key
-  user_data              = <<-EOF
-    #!/bin/bash
-    sudo su
-    yum update -y
-    wget -O /etc/yum.repos.d/jenkins.repo \
-        https://pkg.jenkins.io/redhat-stable/jenkins.repo
-    rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
-    yum upgrade
-    dnf install java-17-amazon-corretto -y
-    yum install jenkins -y
-    systemctl enable jenkins
-    systemctl start jenkins
-    EOF
-
+  user_data              = var.user_data
 }
 
 # Create your security groups
